@@ -1,0 +1,6 @@
+
+# For deployment on Render
+
+flask
+gunicorn
+
