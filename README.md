@@ -2,7 +2,8 @@
 
 A modern, KFC-branded restaurant billing system built with **Flask**, **SQLite**, and pure **CSS** (no Bootstrap). This project provides a beautiful, responsive, and fully functional billing and menu management web app for restaurants, themed after KFC.
 
-![KFC Banner](static/D-PR00002167-prod.webp)
+![KFC Banner](<img width="1906" height="900" alt="image" src="https://github.com/user-attachments/assets/cd822ab2-d024-4767-b239-2ed83f4eb7dd" />
+)
 
 ## Features
 
