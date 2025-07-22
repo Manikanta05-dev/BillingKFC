@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}KFC Menu - KFC Bills{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="hero-section" style="background: linear-gradient(135deg, #d62300 0%, #fff 100%); color: #fff;">
+        <div class="custom-container">
+            <h1 style="color: #fff;">Our KFC Menu</h1>
+            <p class="lead" style="color: #fff;">Crispy, Juicy, Legendary. Choose your KFC favorites!</p>
+        </div>
+    </div>
+    <div class="custom-container py-5">
+        <div class="menu-row">
+            <div class="menu-col">
+                <div class="menu-item-card h-100">
+                    <div class="menu-item-card-body">
+                        <img src="/static/CHKZINGER.jpeg" alt="Zinger Burger" class="menu-item-img">
+                        <div class="menu-item-header mb-2">
+                            <h5 class="menu-item-title">Zinger Burger</h5>
+                            <span class="menu-badge kfc-red">$5.99</span>
+                        </div>
+                        <p class="menu-item-desc">Spicy, crunchy chicken fillet in a soft bun. A KFC classic!</p>
+                        <div class="menu-item-footer">
+                            <small class="menu-item-category">Burger</small>
+                            <span class="menu-badge kfc-black">Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-col">
+                <div class="menu-item-card h-100">
+                    <div class="menu-item-card-body">
+                        <img src="/static/D-PR00002167-prod.webp" alt="2pc Chicken" class="menu-item-img">
+                        <div class="menu-item-header mb-2">
+                            <h5 class="menu-item-title">2pc Fried Chicken</h5>
+                            <span class="menu-badge kfc-red">$6.49</span>
+                        </div>
+                        <p class="menu-item-desc">2 pieces of our world-famous crispy fried chicken.</p>
+                        <div class="menu-item-footer">
+                            <small class="menu-item-category">Chicken</small>
+                            <span class="menu-badge kfc-black">Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-col">
+                <div class="menu-item-card h-100">
+                    <div class="menu-item-card-body">
+                        <img src="/static/BIGSAVE.jpeg" alt="6pc Chicken Bucket" class="menu-item-img">
+                        <div class="menu-item-header mb-2">
+                            <h5 class="menu-item-title">6pc Chicken Bucket</h5>
+                            <span class="menu-badge kfc-red">$17.99</span>
+                        </div>
+                        <p class="menu-item-desc">Share the love with our legendary 6-piece chicken bucket.</p>
+                        <div class="menu-item-footer">
+                            <small class="menu-item-category">Bucket</small>
+                            <span class="menu-badge kfc-black">Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-col">
+                <div class="menu-item-card h-100">
+                    <div class="menu-item-card-body">
+                        <img src="/static/D-K1081.jpeg" alt="Cheese Fries" class="menu-item-img">
+                        <div class="menu-item-header mb-2">
+                            <h5 class="menu-item-title">Cheese Fries</h5>
+                            <span class="menu-badge kfc-red">$3.99</span>
+                        </div>
+                        <p class="menu-item-desc">Golden fries topped with creamy cheese sauce. Irresistible!</p>
+                        <div class="menu-item-footer">
+                            <small class="menu-item-category">Sides</small>
+                            <span class="menu-badge kfc-black">Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-col">
+                <div class="menu-item-card h-100">
+                    <div class="menu-item-card-body">
+                        <img src="/static/D-PR00002955.jpeg" alt="Coleslaw" class="menu-item-img">
+                        <div class="menu-item-header mb-2">
+                            <h5 class="menu-item-title">Coleslaw</h5>
+                            <span class="menu-badge kfc-red">$2.49</span>
+                        </div>
+                        <p class="menu-item-desc">Fresh, crunchy coleslaw with a tangy dressing.</p>
+                        <div class="menu-item-footer">
+                            <small class="menu-item-category">Sides</small>
+                            <span class="menu-badge kfc-black">Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-col">
+                <div class="menu-item-card h-100">
+                    <div class="menu-item-card-body">
+                        <img src="/static/A-34924-0.jpeg" alt="Pepsi" class="menu-item-img">
+                        <div class="menu-item-header mb-2">
+                            <h5 class="menu-item-title">Pepsi</h5>
+                            <span class="menu-badge kfc-red">$1.99</span>
+                        </div>
+                        <p class="menu-item-desc">The perfect drink to go with your KFC meal. Always refreshing.</p>
+                        <div class="menu-item-footer">
+                            <small class="menu-item-category">Beverage</small>
+                            <span class="menu-badge kfc-black">Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Action Buttons -->
+        <div class="text-center mt-5">
+            <a href="{{ url_for('create_bill') }}" class="custom-btn primary large kfc-btn">Create Bill</a>
+            <a href="{{ url_for('index') }}" class="custom-btn primary large kfc-btn kfc-btn-outline">Back to Home</a>
+        </div>
+    </div>
+</div>
+<style>
+.menu-item-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; background: #fff; }
+.custom-container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.menu-row { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; }
+.menu-col { flex: 1 1 320px; min-width: 320px; max-width: 33%; }
+.menu-item-card { background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(214,35,0,0.08); margin-bottom: 24px; transition: all 0.3s ease; border: 2px solid #fff0ee; }
+.menu-item-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(214,35,0,0.15); border-color: #d62300; }
+.menu-item-card-body { padding: 24px; }
+.menu-item-header { display: flex; justify-content: space-between; align-items: start; }
+.menu-item-title { font-weight: 700; margin-bottom: 0; color: #d62300; }
+.menu-badge { font-size: 1rem; padding: 8px 12px; border-radius: 12px; font-weight: 700; display: inline-block; }
+.menu-badge.kfc-red { background: #d62300; color: #fff; }
+.menu-badge.kfc-black { background: #000; color: #fff; }
+.menu-item-desc { color: #7f8c8d; margin: 12px 0; }
+.menu-item-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+.menu-item-category { color: #2c3e50; font-size: 0.95rem; }
+.text-center { text-align: center; }
+.mt-5 { margin-top: 3rem; }
+.kfc-btn { background: #d62300; color: #fff; font-weight: 700; border: none; border-radius: 20px; padding: 12px 32px; margin: 0 8px; transition: background 0.2s, color 0.2s, border 0.2s; }
+.kfc-btn:hover { background: #b71c00; color: #fff; }
+.kfc-btn-outline { background: #fff; color: #d62300; border: 2px solid #d62300; }
+.kfc-btn-outline:hover { background: #d62300; color: #fff; }
+@media (max-width: 900px) { .menu-row { flex-direction: column; gap: 16px; } .menu-col { max-width: 100%; } }
+</style>
+{% endblock %}

@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}All Bills - RestoBill{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="hero-section">
+        <div class="custom-container">
+            <h1>Bill History</h1>
+            <p class="lead">View and manage all generated bills</p>
+        </div>
+    </div>
+    <div class="custom-container py-5">
+        {% if bills %}
+            <!-- Bills Statistics -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="custom-card text-center">
+                        <div class="custom-card-body">
+                            <div class="display-6 text-primary mb-2">
+                                <!-- Icon removed -->
+                            </div>
+                            <h5>Total Bills</h5>
+                            <h3 class="text-primary">{{ bills|length }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="custom-card text-center">
+                        <div class="custom-card-body">
+                            <div class="display-6 text-success mb-2">
+                                <!-- Icon removed -->
+                            </div>
+                            <h5>Total Revenue</h5>
+                            <h3 class="text-success">${{ "%.2f"|format(bills|sum(attribute=5)) }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="custom-card text-center">
+                        <div class="custom-card-body">
+                            <div class="display-6 text-info mb-2">
+                                <!-- Icon removed -->
+                            </div>
+                            <h5>Average Bill</h5>
+                            <h3 class="text-info">${{ "%.2f"|format((bills|sum(attribute=5)) / (bills|length)) }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bills Table -->
+            <div class="custom-card">
+                <div class="custom-card-header primary">
+                    <div class="flex-between align-center">
+                        <h5 class="mb-0">Recent Bills</h5>
+                        <small>Showing last 50 bills</small>
+                    </div>
+                </div>
+                <div class="custom-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Bill #</th>
+                                    <th>Customer</th>
+                                    <th>Table</th>
+                                    <th>Date</th>
+                                    <th class="text-end">Amount</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for bill in bills %}
+                                <tr>
+                                    <td>
+                                        <strong class="text-primary">#{{ bill[0] }}</strong>
+                                    </td>
+                                    <td>
+                                        {{ bill[1] }}
+                                    </td>
+                                    <td>
+                                        {% if bill[2] %}
+                                            <span class="custom-badge info">Table {{ bill[2] }}</span>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">
+                                            {{ bill[6][:16] }}
+                                        </small>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong class="text-success">${{ "%.2f"|format(bill[5]) }}</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ url_for('view_bill', bill_id=bill[0]) }}" 
+                                           class="custom-btn small outline-primary" 
+                                           title="View Bill">
+                                            View
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Quick Actions -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <a href="{{ url_for('create_bill') }}" class="custom-btn success large">
+                        Create New Bill
+                    </a>
+                    <a href="{{ url_for('admin') }}" class="custom-btn info large">
+                        View Analytics
+                    </a>
+                    <a href="{{ url_for('index') }}" class="custom-btn secondary large">
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <!-- Empty State -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-card">
+                        <div class="custom-card-body text-center py-5">
+                            <div class="display-1 text-muted mb-4">
+                                <!-- Icon removed -->
+                            </div>
+                            <h3>No Bills Found</h3>
+                            <p class="text-muted mb-4">You haven't generated any bills yet. Start by creating your first bill!</p>
+                            <a href="{{ url_for('create_bill') }}" class="custom-btn primary large">
+                                Create First Bill
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<style>
+.custom-container { max-width: 900px; margin: 0 auto; padding: 24px; }
+.custom-card { background: #fff; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); margin-bottom: 24px; }
+.custom-card-body { padding: 32px; }
+.custom-card-header.primary { background: #e74c3c; color: #fff; border-radius: 10px 10px 0 0; padding: 18px 32px; }
+.flex-between { display: flex; justify-content: space-between; }
+.align-center { align-items: center; }
+.custom-btn { display: inline-block; padding: 10px 24px; border-radius: 20px; border: none; font-weight: 600; margin: 0 4px; text-decoration: none; cursor: pointer; transition: background 0.2s; }
+.custom-btn.primary { background: #e74c3c; color: #fff; }
+.custom-btn.primary:hover { background: #c0392b; }
+.custom-btn.success { background: #27ae60; color: #fff; }
+.custom-btn.info { background: #3498db; color: #fff; }
+.custom-btn.secondary { background: #2c3e50; color: #fff; }
+.custom-btn.large { font-size: 1.1rem; padding: 14px 32px; }
+.custom-btn.small { font-size: 0.9rem; padding: 6px 16px; }
+.custom-btn.outline-primary { background: #fff; color: #e74c3c; border: 2px solid #e74c3c; }
+.custom-btn.outline-primary:hover { background: #e74c3c; color: #fff; }
+.custom-badge { display: inline-block; padding: 6px 16px; border-radius: 12px; font-size: 0.9rem; font-weight: 600; }
+.custom-badge.success { background: #27ae60; color: #fff; }
+.custom-badge.warning { background: #f39c12; color: #fff; }
+.custom-badge.secondary { background: #7f8c8d; color: #fff; }
+.custom-badge.info { background: #3498db; color: #fff; }
+.custom-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+.custom-table th, .custom-table td { border: 1px solid #dee2e6; padding: 10px; text-align: left; }
+.custom-table th { background: #2c3e50; color: #fff; }
+.custom-table .text-center { text-align: center; }
+.custom-table .text-end { text-align: right; }
+.text-primary { color: #e74c3c; }
+.text-success { color: #27ae60; }
+.text-info { color: #3498db; }
+.text-muted { color: #7f8c8d; }
+@media (max-width: 768px) { .flex-between { flex-direction: column; gap: 12px; } .custom-card-body { padding: 16px; } .custom-btn.large { font-size: 1rem; padding: 10px 18px; } }
+</style>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+
+{% block title %}Create Bill - KFC Bills{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="hero-section" style="background: linear-gradient(135deg, #d62300 0%, #fff 100%); color: #fff;">
+        <div class="custom-container">
+            <h1 style="color: #fff;">Create New KFC Bill</h1>
+            <p class="lead" style="color: #fff;">Select your KFC favorites and generate a crispy bill!</p>
+        </div>
+    </div>
+    <div class="custom-container py-5">
+        <form method="POST" action="{{ url_for('generate_bill') }}" id="billForm">
+            <div class="top-row">
+                <div class="info-col">
+                    <div class="custom-card mb-4" style="border: 2px solid #d62300;">
+                        <div class="custom-card-header primary" style="background: #d62300; color: #fff;">
+                            <h5 class="mb-0">Customer Information</h5>
+                        </div>
+                        <div class="custom-card-body">
+                            <div class="mb-3">
+                                <label for="customer_name" class="form-label">Customer Name *</label>
+                                <input type="text" class="custom-input" id="customer_name" name="customer_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="table_number" class="form-label">Table Number</label>
+                                <input type="number" class="custom-input" id="table_number" name="table_number" min="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-col">
+                    <div class="custom-card mb-4" style="border: 2px solid #d62300;">
+                        <div class="custom-card-header success" style="background: #000; color: #fff;">
+                            <h5 class="mb-0">Bill Summary</h5>
+                        </div>
+                        <div class="custom-card-body">
+                            <div class="flex-between mb-2">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div class="flex-between mb-2">
+                                <span>Tax (10%):</span>
+                                <span id="tax">$0.00</span>
+                            </div>
+                            <hr>
+                            <div class="flex-between">
+                                <strong>Total:</strong>
+                                <strong id="total">$0.00</strong>
+                            </div>
+                            <button type="submit" class="kfc-btn w-100 mt-3" id="generateBill" disabled>Generate Bill</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-section">
+                <div class="custom-card" style="border: 2px solid #d62300;">
+                    <div class="custom-card-header info" style="background: #fff; color: #d62300; font-weight: 700;">
+                        <h5 class="mb-0">Select KFC Items</h5>
+                    </div>
+                    <div class="custom-card-body">
+                        <div class="menu-grid">
+                            <!-- KFC Menu Items -->
+                            <div class="menu-item-select">
+                                <div class="menu-item-select-body">
+                                    <div class="menu-item-select-flex">
+                                        <img src="/static/CHKZINGER.jpeg" alt="Zinger Burger" class="menu-item-img" style="width: 80px; height: 80px; object-fit: contain; margin-right: 16px;">
+                                        <div class="flex-grow-1">
+                                            <label class="form-check-label" for="item_zinger">
+                                                <strong style="color: #d62300;">Zinger Burger</strong><br>
+                                                <small class="text-muted">Spicy, crunchy chicken fillet in a soft bun.</small><br>
+                                                <span class="menu-badge kfc-red">$5.99</span>
+                                            </label>
+                                        </div>
+                                        <div class="quantity-control">
+                                            <input type="number" class="custom-input quantity-input" name="quantities" value="0" min="0" max="50" data-price="5.99" data-item-id="zinger" style="width: 70px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-item-select">
+                                <div class="menu-item-select-body">
+                                    <div class="menu-item-select-flex">
+                                        <img src="/static/D-PR00002167-prod.webp" alt="2pc Chicken" class="menu-item-img" style="width: 80px; height: 80px; object-fit: contain; margin-right: 16px;">
+                                        <div class="flex-grow-1">
+                                            <label class="form-check-label" for="item_2pc">
+                                                <strong style="color: #d62300;">2pc Fried Chicken</strong><br>
+                                                <small class="text-muted">2 pieces of our world-famous crispy fried chicken.</small><br>
+                                                <span class="menu-badge kfc-red">$6.49</span>
+                                            </label>
+                                        </div>
+                                        <div class="quantity-control">
+                                            <input type="number" class="custom-input quantity-input" name="quantities" value="0" min="0" max="50" data-price="6.49" data-item-id="2pc" style="width: 70px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-item-select">
+                                <div class="menu-item-select-body">
+                                    <div class="menu-item-select-flex">
+                                        <img src="/static/BIGSAVE.jpeg" alt="6pc Chicken Bucket" class="menu-item-img" style="width: 80px; height: 80px; object-fit: contain; margin-right: 16px;">
+                                        <div class="flex-grow-1">
+                                            <label class="form-check-label" for="item_bucket">
+                                                <strong style="color: #d62300;">6pc Chicken Bucket</strong><br>
+                                                <small class="text-muted">Legendary 6-piece chicken bucket for sharing.</small><br>
+                                                <span class="menu-badge kfc-red">$17.99</span>
+                                            </label>
+                                        </div>
+                                        <div class="quantity-control">
+                                            <input type="number" class="custom-input quantity-input" name="quantities" value="0" min="0" max="50" data-price="17.99" data-item-id="bucket" style="width: 70px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-item-select">
+                                <div class="menu-item-select-body">
+                                    <div class="menu-item-select-flex">
+                                        <img src="/static/D-K1081.jpeg" alt="Cheese Fries" class="menu-item-img" style="width: 80px; height: 80px; object-fit: contain; margin-right: 16px;">
+                                        <div class="flex-grow-1">
+                                            <label class="form-check-label" for="item_fries">
+                                                <strong style="color: #d62300;">Cheese Fries</strong><br>
+                                                <small class="text-muted">Golden fries topped with creamy cheese sauce.</small><br>
+                                                <span class="menu-badge kfc-red">$3.99</span>
+                                            </label>
+                                        </div>
+                                        <div class="quantity-control">
+                                            <input type="number" class="custom-input quantity-input" name="quantities" value="0" min="0" max="50" data-price="3.99" data-item-id="fries" style="width: 70px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-item-select">
+                                <div class="menu-item-select-body">
+                                    <div class="menu-item-select-flex">
+                                        <img src="/static/D-PR00002955.jpeg" alt="Coleslaw" class="menu-item-img" style="width: 80px; height: 80px; object-fit: contain; margin-right: 16px;">
+                                        <div class="flex-grow-1">
+                                            <label class="form-check-label" for="item_coleslaw">
+                                                <strong style="color: #d62300;">Coleslaw</strong><br>
+                                                <small class="text-muted">Fresh, crunchy coleslaw with a tangy dressing.</small><br>
+                                                <span class="menu-badge kfc-red">$2.49</span>
+                                            </label>
+                                        </div>
+                                        <div class="quantity-control">
+                                            <input type="number" class="custom-input quantity-input" name="quantities" value="0" min="0" max="50" data-price="2.49" data-item-id="coleslaw" style="width: 70px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-item-select">
+                                <div class="menu-item-select-body">
+                                    <div class="menu-item-select-flex">
+                                        <img src="/static/A-34924-0.jpeg" alt="Pepsi" class="menu-item-img" style="width: 80px; height: 80px; object-fit: contain; margin-right: 16px;">
+                                        <div class="flex-grow-1">
+                                            <label class="form-check-label" for="item_pepsi">
+                                                <strong style="color: #d62300;">Pepsi</strong><br>
+                                                <small class="text-muted">The perfect drink to go with your KFC meal.</small><br>
+                                                <span class="menu-badge kfc-red">$1.99</span>
+                                            </label>
+                                        </div>
+                                        <div class="quantity-control">
+                                            <input type="number" class="custom-input quantity-input" name="quantities" value="0" min="0" max="50" data-price="1.99" data-item-id="pepsi" style="width: 70px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Action Buttons -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index') }}" class="kfc-btn kfc-btn-outline">Back to Home</a>
+            <a href="{{ url_for('menu') }}" class="kfc-btn">View Full Menu</a>
+        </div>
+    </div>
+</div>
+<style>
+.custom-container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.top-row { display: flex; gap: 32px; margin-bottom: 32px; }
+.info-col, .summary-col { flex: 1 1 340px; min-width: 340px; max-width: 50%; }
+.menu-section { margin-top: 0; }
+.custom-card { background: #fff; border-radius: 10px; box-shadow: 0 5px 15px rgba(214,35,0,0.08); margin-bottom: 24px; border: 2px solid #fff0ee; }
+.custom-card-header { padding: 18px 32px; border-radius: 10px 10px 0 0; font-weight: 600; font-size: 1.1rem; }
+.custom-card-header.primary { background: #d62300; color: #fff; }
+.custom-card-header.success { background: #000; color: #fff; }
+.custom-card-header.info { background: #fff; color: #d62300; }
+.custom-card-body { padding: 32px; }
+.kfc-btn { background: #d62300; color: #fff; font-weight: 700; border: none; border-radius: 20px; padding: 12px 32px; margin: 0 8px; transition: background 0.2s, color 0.2s, border 0.2s; }
+.kfc-btn:hover { background: #b71c00; color: #fff; }
+.kfc-btn-outline { background: #fff; color: #d62300; border: 2px solid #d62300; }
+.kfc-btn-outline:hover { background: #d62300; color: #fff; }
+.custom-btn.large { font-size: 1.1rem; padding: 14px 32px; }
+.w-100 { width: 100%; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.flex-between { display: flex; justify-content: space-between; }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; }
+.menu-item-select { background: #fff8f5; border-radius: 8px; border: 2px solid #fff0ee; transition: all 0.3s ease; }
+.menu-item-select.selected { border-color: #d62300; background: #fff0ee; }
+.menu-item-select-body { padding: 16px; }
+.menu-item-select-flex { display: flex; align-items: center; gap: 12px; }
+.custom-input { border-radius: 8px; border: 2px solid #e9ecef; padding: 10px; font-size: 1rem; transition: border-color 0.3s; }
+.custom-input:focus { border-color: #d62300; outline: none; }
+.quantity-control { display: flex; align-items: center; }
+.menu-badge { font-size: 1rem; padding: 8px 12px; border-radius: 12px; font-weight: 700; display: inline-block; }
+.menu-badge.kfc-red { background: #d62300; color: #fff; }
+.menu-badge.kfc-black { background: #000; color: #fff; }
+.text-center { text-align: center; }
+.text-muted { color: #7f8c8d; }
+@media (max-width: 900px) { .top-row { flex-direction: column; gap: 16px; } .info-col, .summary-col { max-width: 100%; } .menu-grid { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('.item-checkbox');
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    const subtotalElement = document.getElementById('subtotal');
+    const taxElement = document.getElementById('tax');
+    const totalElement = document.getElementById('total');
+    const generateBillBtn = document.getElementById('generateBill');
+    const customerNameInput = document.getElementById('customer_name');
+
+    function updateBillSummary() {
+        let subtotal = 0;
+        let hasItems = false;
+        quantityInputs.forEach(input => {
+            const quantity = parseInt(input.value) || 0;
+            const price = parseFloat(input.dataset.price);
+            if (quantity > 0) {
+                subtotal += quantity * price;
+                hasItems = true;
+            }
+        });
+        const tax = subtotal * 0.10;
+        const total = subtotal + tax;
+        subtotalElement.textContent = '$' + subtotal.toFixed(2);
+        taxElement.textContent = '$' + tax.toFixed(2);
+        totalElement.textContent = '$' + total.toFixed(2);
+        // Enable/disable generate bill button
+        const hasCustomerName = customerNameInput.value.trim() !== '';
+        generateBillBtn.disabled = !hasItems || !hasCustomerName;
+    }
+
+    function syncCheckboxAndQuantity(checkbox, quantityInput) {
+        if (checkbox.checked && parseInt(quantityInput.value) === 0) {
+            quantityInput.value = 1;
+        } else if (!checkbox.checked) {
+            quantityInput.value = 0;
+        }
+        // Update card appearance
+        const card = checkbox.closest('.menu-item-select');
+        if (checkbox.checked && parseInt(quantityInput.value) > 0) {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    }
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const itemId = this.value;
+            const quantityInput = document.querySelector(`input[data-item-id="${itemId}"]`);
+            if (quantityInput) {
+                syncCheckboxAndQuantity(this, quantityInput);
+                updateBillSummary();
+            }
+        });
+    });
+    quantityInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            const itemId = this.dataset.itemId;
+            const checkbox = document.querySelector(`input.item-checkbox[value="${itemId}"]`);
+            if (checkbox) {
+                checkbox.checked = parseInt(this.value) > 0;
+                syncCheckboxAndQuantity(checkbox, this);
+            }
+            updateBillSummary();
+        });
+    });
+    customerNameInput.addEventListener('input', updateBillSummary);
+    document.getElementById('billForm').addEventListener('submit', function(e) {
+        let hasSelectedItems = false;
+        quantityInputs.forEach(input => {
+            if (parseInt(input.value) > 0) {
+                hasSelectedItems = true;
+            }
+        });
+        if (!hasSelectedItems) {
+            e.preventDefault();
+            alert('Please select at least one item with quantity greater than 0.');
+            return false;
+        }
+        if (!customerNameInput.value.trim()) {
+            e.preventDefault();
+            alert('Please enter customer name.');
+            customerNameInput.focus();
+            return false;
+        }
+    });
+    updateBillSummary();
+});
+</script>
+{% endblock %}

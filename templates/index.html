@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}KFC Bills - Home{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="hero-section" style="background: linear-gradient(135deg, #d62300 0%, #fff 100%); color: #fff; padding: 60px 0;">
+        <div class="kfc-hero-content" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 48px; max-width: 1200px; margin: 0 auto;">
+            <div style="flex: 1 1 350px; min-width: 320px;">
+                <h1 style="font-size: 3rem; font-weight: 700; color: #fff; margin-bottom: 18px; letter-spacing: 2px;">Welcome to KFC Bills</h1>
+                <p style="font-size: 1.3rem; color: #fff; margin-bottom: 32px;">Crispy, Juicy, Legendary. Manage your KFC restaurant bills with style!</p>
+                <a href="{{ url_for('create_bill') }}" class="kfc-btn kfc-btn-outline">Create New Bill</a>
+            </div>
+            <div style="flex: 1 1 350px; min-width: 320px; text-align: center;">
+                <img src="/static/D-PR00002167-prod.webp" alt="KFC Chicken" style="width: 320px; max-width: 100%; border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); background: #fff;">
+            </div>
+        </div>
+    </div>
+    <div class="custom-container py-5">
+        <div class="feature-row" style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;">
+            <div class="feature-col" style="flex: 1 1 220px; min-width: 220px; max-width: 25%;">
+                <div class="custom-card text-center" style="background: #fff7f5;">
+                    <div class="custom-card-body">
+                        <img src="/static/CHKZINGER.jpeg" alt="Zinger Burger" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 12px;">
+                        <h5 class="card-title">Zinger Burger</h5>
+                        <p class="card-text">Spicy, crunchy chicken fillet in a soft bun. A KFC classic!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-col" style="flex: 1 1 220px; min-width: 220px; max-width: 25%;">
+                <div class="custom-card text-center" style="background: #fff7f5;">
+                    <div class="custom-card-body">
+                        <img src="/static/BIGSAVE.jpeg" alt="Chicken Bucket" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 12px;">
+                        <h5 class="card-title">Chicken Bucket</h5>
+                        <p class="card-text">Share the love with our world-famous fried chicken bucket.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-col" style="flex: 1 1 220px; min-width: 220px; max-width: 25%;">
+                <div class="custom-card text-center" style="background: #fff7f5;">
+                    <div class="custom-card-body">
+                        <img src="/static/D-K1081.jpeg" alt="Cheese Fries" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 12px;">
+                        <h5 class="card-title">Cheese Fries</h5>
+                        <p class="card-text">Golden fries topped with creamy cheese sauce. Irresistible!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-col" style="flex: 1 1 220px; min-width: 220px; max-width: 25%;">
+                <div class="custom-card text-center" style="background: #fff7f5;">
+                    <div class="custom-card-body">
+                        <img src="/static/A-34924-0.jpeg" alt="Pepsi" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 12px;">
+                        <h5 class="card-title">Pepsi</h5>
+                        <p class="card-text">The perfect drink to go with your KFC meal. Always refreshing!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="custom-container py-4">
+        <div class="custom-card" style="background: #fff;">
+            <div class="custom-card-body">
+                <h4 class="card-title text-center mb-4" style="color: #d62300;">Why Choose KFC Bills?</h4>
+                <div class="feature-row" style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;">
+                    <div class="feature-col text-center" style="flex: 1 1 220px; min-width: 220px; max-width: 25%;">
+                        <img src="/static/D-PR00002955.jpeg" alt="Coleslaw" style="width: 60px; height: 60px; object-fit: contain; margin-bottom: 8px;">
+                        <h6 style="color: #d62300;">Fast & Easy</h6>
+                        <p class="text-muted small">Generate bills in seconds with our optimized KFC system</p>
+                    </div>
+                    <div class="feature-col text-center" style="flex: 1 1 220px; min-width: 220px; max-width: 25%;">
+                        <img src="/static/D-PR00002167-prod.webp" alt="2pc Chicken" style="width: 60px; height: 60px; object-fit: contain; margin-bottom: 8px;">
+                        <h6 style="color: #d62300;">Mobile Friendly</h6>
+                        <p class="text-muted small">Works perfectly on all devices and screen sizes</p>
+                    </div>
+                    <div class="feature-col text-center" style="flex: 1 1 220px; min-width: 220px; max-width: 25%;">
+                        <img src="/static/BIGSAVE.jpeg" alt="Chicken Bucket" style="width: 60px; height: 60px; object-fit: contain; margin-bottom: 8px;">
+                        <h6 style="color: #d62300;">Secure & Reliable</h6>
+                        <p class="text-muted small">Your data is safe with our secure database system</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="custom-container pb-5">
+        <div class="text-center">
+            <h4 class="mb-4" style="color: #d62300;">Quick Actions</h4>
+            <div class="quick-actions">
+                <a href="{{ url_for('create_bill') }}" class="kfc-btn kfc-btn-outline">Create New Bill</a>
+                <a href="{{ url_for('menu') }}" class="kfc-btn kfc-btn-outline">Browse Menu</a>
+                <a href="{{ url_for('view_bills') }}" class="kfc-btn kfc-btn-outline">View All Bills</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.kfc-btn { background: #d62300; color: #fff; font-weight: 700; border: none; border-radius: 20px; padding: 12px 32px; margin: 0 8px; transition: background 0.2s, color 0.2s, border 0.2s; }
+.kfc-btn:hover { background: #b71c00; color: #fff; }
+.kfc-btn-outline { background: #fff; color: #d62300; border: 2px solid #d62300; }
+.kfc-btn-outline:hover { background: #d62300; color: #fff; }
+</style>
+{% endblock %}

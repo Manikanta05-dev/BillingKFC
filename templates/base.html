@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KFC Restaurant Bill Generator{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d62300;
+            --secondary-color: #000;
+            --accent-color: #fff;
+            --kfc-bg: #fff8f5;
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: var(--kfc-bg);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .site-wrapper {
+            width: 100vw;
+            min-height: 100vh;
+            background: var(--kfc-bg);
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .navbar {
+            background: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 0;
+            margin: 0;
+            width: 100vw;
+        }
+        .navbar-inner {
+            width: 100vw;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            height: 80px;
+            box-sizing: border-box;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--accent-color) !important;
+            font-size: 2rem;
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .kfc-logo {
+            width: 48px;
+            height: 48px;
+            background: url('https://1000logos.net/wp-content/uploads/2017/03/KFC-Logo.png') no-repeat center center/contain;
+            display: inline-block;
+        }
+        .navbar-nav {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar-nav .nav-link {
+            color: var(--accent-color) !important;
+            font-weight: 600;
+            transition: color 0.3s;
+            text-decoration: none;
+            padding: 8px 0;
+            display: block;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffe600 !important;
+        }
+        .main-container {
+            background: var(--kfc-bg);
+            border-radius: 0;
+            box-shadow: none;
+            margin: 0;
+            padding: 0;
+            flex: 1 0 auto;
+            width: 100vw;
+            box-sizing: border-box;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231,76,60,0.4);
+        }
+
+        .btn-success {
+            background: #27ae60;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+
+        .btn-info {
+            background: #3498db;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+
+        .btn-warning {
+            background: var(--accent-color);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .footer {
+            background: var(--primary-color);
+            color: var(--accent-color);
+            text-align: center;
+            padding: 30px 0 20px 0;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+            width: 100vw;
+        }
+        .footer-inner {
+            width: 100vw;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .footer-inner p, .footer-inner small {
+            color: var(--accent-color);
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            padding: 12px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(231,76,60,0.25);
+        }
+
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .table thead {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 8px 12px;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .site-wrapper, .navbar-inner, .footer-inner {
+                width: 100vw;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .navbar-inner {
+                flex-direction: column;
+                height: auto;
+                padding: 0 12px;
+            }
+            .footer-inner {
+                padding: 0 12px;
+            }
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-wrapper">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="navbar-inner">
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <span class="kfc-logo"></span>
+                    KFC Bills
+                </a>
+                <ul class="navbar-nav">
+                    <li><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                    <li><a class="nav-link" href="{{ url_for('menu') }}">Menu</a></li>
+                    <li><a class="nav-link" href="{{ url_for('create_bill') }}">New Bill</a></li>
+                    <li><a class="nav-link" href="{{ url_for('view_bills') }}">Bills</a></li>
+                    <li><a class="nav-link" href="{{ url_for('admin') }}">Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="main-container" style="padding: 16px 32px 0 32px;">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <!-- Main Content -->
+        <main class="main-container">
+            {% block content %}{% endblock %}
+        </main>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-inner">
+                <p class="mb-0">&copy; 2025 KFC Bills - Professional Restaurant Billing System</p>
+                <p class="mb-0"><small>Built with Flask & SQLite | Not affiliated with KFC Corporation</small></p>
+            </div>
+        </footer>
+    </div>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

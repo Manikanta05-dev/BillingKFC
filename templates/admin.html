@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}KFC Admin Dashboard - KFC Bills{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="kfc-admin-banner" style="background: linear-gradient(135deg, #d62300 0%, #fff 100%); padding: 32px 0; text-align: center;">
+        <img src="/static/D-PR00002167-prod.webp" alt="KFC Chicken" style="width: 100px; height: 100px; object-fit: contain; border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); background: #fff;">
+        <h1 style="color: #d62300; font-size: 2.2rem; font-weight: 700; margin: 16px 0 0 0;">KFC Admin Dashboard</h1>
+        <div style="margin-top: 18px;">
+            <span style="background: #fff; color: #d62300; font-weight: 700; padding: 10px 28px; border-radius: 24px; font-size: 1.2rem; box-shadow: 0 2px 8px rgba(214,35,0,0.08);">🔥 Promo: Family Bucket + 4 Drinks only $24.99!</span>
+        </div>
+    </div>
+    <div class="custom-container py-5">
+        <div class="dashboard-row">
+            <div class="dashboard-col">
+                <div class="dashboard-card" style="border: 2px solid #d62300;">
+                    <div class="dashboard-card-title" style="color: #d62300;">Bills Today</div>
+                    <div class="dashboard-card-value">{{ today_bills }}</div>
+                </div>
+            </div>
+            <div class="dashboard-col">
+                <div class="dashboard-card" style="border: 2px solid #d62300;">
+                    <div class="dashboard-card-title" style="color: #d62300;">Today's Revenue</div>
+                    <div class="dashboard-card-value">${{ '%.2f'|format(today_revenue) }}</div>
+                </div>
+            </div>
+            <div class="dashboard-col">
+                <div class="dashboard-card" style="border: 2px solid #d62300;">
+                    <div class="dashboard-card-title" style="color: #d62300;">Active Menu Items</div>
+                    <div class="dashboard-card-value">{{ active_items }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="{{ url_for('create_bill') }}" class="kfc-btn">Create Bill</a>
+            <a href="{{ url_for('view_bills') }}" class="kfc-btn kfc-btn-outline">View Bills</a>
+            <a href="{{ url_for('menu') }}" class="kfc-btn kfc-btn-outline">View Menu</a>
+        </div>
+    </div>
+</div>
+<style>
+.custom-container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.dashboard-row { display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; }
+.dashboard-col { flex: 1 1 220px; min-width: 220px; max-width: 33%; }
+.dashboard-card { background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(214,35,0,0.08); padding: 32px; text-align: center; margin-bottom: 24px; border: 2px solid #fff0ee; }
+.dashboard-card-title { font-size: 1.1rem; color: #d62300; margin-bottom: 12px; font-weight: 700; }
+.dashboard-card-value { font-size: 2.5rem; color: #d62300; font-weight: bold; }
+.text-center { text-align: center; }
+.mt-5 { margin-top: 3rem; }
+@media (max-width: 900px) { .dashboard-row { flex-direction: column; gap: 16px; } .dashboard-col { max-width: 100%; } }
+.kfc-btn { background: #d62300; color: #fff; font-weight: 700; border: none; border-radius: 20px; padding: 12px 32px; margin: 0 8px; transition: background 0.2s, color 0.2s, border 0.2s; }
+.kfc-btn:hover { background: #b71c00; color: #fff; }
+.kfc-btn-outline { background: #fff; color: #d62300; border: 2px solid #d62300; }
+.kfc-btn-outline:hover { background: #d62300; color: #fff; }
+</style>
+{% endblock %} 
